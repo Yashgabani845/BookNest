@@ -19,7 +19,7 @@ Asp .net Core MVC
 1. Clone the repository:
 
 ```bash
-  git clone https://github.com/vedpatel7/BookDepo.git
+  git clone https://github.com/Yashgabani845/BookDepo.git
 ```
 
 2. Go to tools->nuget package manager console
