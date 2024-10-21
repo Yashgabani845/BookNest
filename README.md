@@ -1,7 +1,7 @@
-# 📚 BookDepo
+# 📚 BookWeb
 
 ## Project Overview
-BookDepo is an online Book shop that provides a web-based platform for purchasing and managing books. Users can browse through available books, view details, and place orders, while admins have the ability to manage books and their associated categories.
+BookWeb is an online Book shop that provides a web-based platform for purchasing and managing books. Users can browse through available books, view details, and place orders, while admins have the ability to manage books and their associated categories.
 
 ## Features
 
