@@ -1,0 +1,220 @@
+﻿@model Product
+@{
+    ViewData["Title"] = "BookDepo - Product Details";
+}
+
+<form method="post" id="productForm">
+    <div class="card shadow border-0 mt-4 mb-4">
+        <div class="card-header bg-primary bg-gradient text-light py-4">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="text-white">BookDepo</h1>
+                    <h3 class="text-white text-uppercase">@Model.Title</h3>
+                    <p class="text-white-50 fw-semibold mb-0">by @Model.Author</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="py-3">
+                <div class="row">
+                    <div class="col-6 col-md-2 offset-lg-1 pb-1">
+                        <a asp-action="Index" class="btn btn-outline-primary bg-gradient mb-5 fw-semibold btn-sm text-uppercase">
+                            <small>Back to home</small>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-3 offset-lg-1 text-center mb-3">
+                        <img src="@Model.ImageUrl" width="100%" class="rounded" />
+                    </div>
+                    <div class="col-12 col-lg-6 offset-lg-1">
+                        <div class="col-12 col-md-6 pb-4">
+                            <span class="badge bg-secondary">@Model.Category.Name</span>
+                        </div>
+                        <div class="row ps-2">
+                            <h6 class="text-muted">ISBN : @Model.ISBN</h6>
+                        </div>
+                        <div class="row ps-2">
+                            <h6 class="text-muted pb-2">
+                                List Price:
+                                <span class="text-decoration-line-through">
+                                    @Model.ListPrice.ToString("c")
+                                </span>
+                            </h6>
+                        </div>
+                        <div class="row text-center ps-2">
+                            <div class="p-1 col-3 col-lg-2 bg-white border-bottom">
+                                <div class="text-muted fw-semibold">Quantity</div>
+                            </div>
+                            <div class="p-1 col-3 col-lg-2 bg-white border-bottom">
+                                <div class="text-muted fw-semibold">1-50</div>
+                            </div>
+                            <div class="p-1 col-3 col-lg-2 bg-white border-bottom">
+                                <div class="text-muted fw-semibold">51-100</div>
+                            </div>
+                            <div class="p-1 col-3 col-lg-2 bg-white border-bottom">
+                                <div class="text-muted fw-semibold">100+</div>
+                            </div>
+                        </div>
+                        <div class="row text-center ps-2">
+                            <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
+                                <div>Price</div>
+                            </div>
+                            <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
+                                <div>@Model.Price.ToString("c")</div>
+                            </div>
+                            <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
+                                <div>@Model.Price50.ToString("c")</div>
+                            </div>
+                            <div class="p-1 col-3 col-lg-2 bg-white text-warning fw-bold">
+                                <div>@Model.Price100.ToString("c")</div>
+                            </div>
+                        </div>
+                        <div class="row pl-2 my-3">
+                            <p class="text-muted lh-sm">@Html.Raw(Model.Description)</p>
+                        </div>
+                        <div class="row pl-2 mb-3">
+                            <div class="col-md-4">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-primary text-white border-0 fw-semibold"
+                                          id="inputGroup-sizing-default">
+                                        Count
+                                    </span>
+                                    <input type="number" value="1" class="form-control text-end" id="quantity"
+                                           aria-label="Quantity" aria-describedby="inputGroup-sizing-default" min="1" required />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-6 pb-1">
+                                <button type="button" id="buyNowBtn"
+                                        class="btn btn-primary bg-gradient w-100 py-2 text-uppercase fw-semibold">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Modal -->
+<div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addressModalLabel">Enter Shipping Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addressForm">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <textarea class="form-control" id="address" rows="3" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="postalCode" class="form-label">Postal Code</label>
+                        <input type="text" class="form-control" id="postalCode" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="totalPrice" class="form-label">Total Price</label>
+                        <input type="text" class="form-control" id="totalPrice" readonly>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="generatePdfBtn">Generate PDF</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const modal = new bootstrap.Modal(document.getElementById('addressModal'));
+
+            $('#buyNowBtn').click(function () {
+                const quantity = parseInt($('#quantity').val());
+                let price;
+                if (quantity <= 50) {
+                    price = @Model.Price;
+                } else if (quantity <= 100) {
+                    price = @Model.Price50;
+                } else {
+                    price = @Model.Price100;
+                }
+                const totalPrice = (quantity * price).toFixed(2);
+                $('#totalPrice').val(totalPrice);
+                modal.show();
+            });
+
+            $('#generatePdfBtn').click(function (e) {
+                // Prevent default form submission behavior
+                e.preventDefault();
+
+                // Get form values
+                const name = $('#name').val().trim();
+                const address = $('#address').val().trim();
+                const city = $('#city').val().trim();
+                const postalCode = $('#postalCode').val().trim();
+                const totalPrice = $('#totalPrice').val();
+
+                if (!name || !address || !city || !postalCode) {
+                    alert('Please fill in all required fields.');
+                    return; 
+                }
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Set font and styles
+                doc.setFont('helvetica', 'bold'); // Font and weight
+                doc.setTextColor(33, 150, 243); // Use a blue color for the title (RGB format)
+                doc.setFontSize(20);
+                doc.text('BookDepo - Invoice', 105, 15, null, null, 'center');
+
+                doc.setFont('helvetica', 'normal');
+                doc.setTextColor(0, 0, 0); 
+                doc.setFontSize(12);
+                doc.text('Product: @Model.Title', 20, 30);
+                doc.text('Author: @Model.Author', 20, 40);
+                doc.text('ISBN: @Model.ISBN', 20, 50);
+                doc.text('Quantity: ' + $('#quantity').val(), 20, 60);
+                doc.text('Total Price: ' + totalPrice, 20, 70);
+
+                doc.setTextColor(33, 150, 243); 
+                doc.text('Shipping Address:', 20, 90);
+                doc.setTextColor(0, 0, 0);
+                doc.text(name, 20, 100);
+                doc.text(address, 20, 110);
+                doc.text(city + ', ' + postalCode, 20, 120);
+
+                doc.save('BookDepo_Invoice.pdf');
+                modal.hide();
+            });
+        });
+
+    </script>
+}
+
+<style>
+   
+</style>
